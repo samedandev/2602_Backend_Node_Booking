@@ -11,7 +11,7 @@ function ReserveModal({ setOpenModal, hotelId }) {
   const navigate = useNavigate();
   const [selectedRooms, setSelectedRooms] = useState([]);
 
-  const { data, loading, error } = useFetch(`room/${hotelId}`);
+  const { data } = useFetch(`room/${hotelId}`);
 
   const { dates } = useContext(SearchContext);
   console.log("dates");
@@ -35,7 +35,7 @@ function ReserveModal({ setOpenModal, hotelId }) {
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
-      allDates.includes(new Date(date).getTime())
+      allDates.includes(new Date(date).getTime()),
     );
     return !isFound;
   };
@@ -46,7 +46,7 @@ function ReserveModal({ setOpenModal, hotelId }) {
     setSelectedRooms(
       checked
         ? [...selectedRooms, value]
-        : selectedRooms.filter((item) => item !== value)
+        : selectedRooms.filter((item) => item !== value),
     );
   };
 
@@ -62,7 +62,7 @@ function ReserveModal({ setOpenModal, hotelId }) {
             dates: allDates,
           });
           return res.data;
-        })
+        }),
       );
       setOpenModal(false);
       navigate("/");
